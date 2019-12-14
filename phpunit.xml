@@ -7,17 +7,32 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="false"
+         syntaxCheck="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
             <exclude>
-                <file>./app/Http/routes.php</file>
+                <directory>./app/Providers</directory>
+                <directory suffix="Interface.php">./app</directory>
+                <!--
+                    デフォルトで用意されているクラスを除外しています
+                    必要に応じて追加することができます
+                -->
+                <file>./app/Http/Requests/Request.php</file>
+                <file>./app/Http/Kernel.php</file>
+                <file>./app/Http/Controllers/Controller.php</file>
+                <file>./app/Commands/Command.php</file>
+                <file>./app/Events/Event.php</file>
+                <file>./app/Exceptions/Handler.php</file>
+                <file>./app/Http/Middleware/Authenticate.php</file>
+                <file>./app/Http/Middleware/RedirectIfAuthenticated.php</file>
+                <file>./app/Http/Middleware/VerifyCsrfToken.php</file>
             </exclude>
         </whitelist>
     </filter>
@@ -26,5 +41,15 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <!--
+            envを利用してLaravelの設定ファイルに記述している値を変更できます
+            この機能を使う場合は、.envファイルなどを利用して、各configファイルでenvヘルパー関数を利用して指定します
+            envヘルパー関数は.envファイルを読むよりも先にgetenvが実行されます
+            下記の指定は、
+            config/database.phpのdefaultキーDB_CONNECTIONに対して、テスト時にtestingへ向くように指定しています
+            同様にconfig/broadcasting.phpのdefaultキーBROADCAST_DRIVERに対して指定しています
+        -->
+        <env name="DB_CONNECTION" value="testing"/>
+        <env name="BROADCAST_DRIVER" value="log"/>
     </php>
 </phpunit>
