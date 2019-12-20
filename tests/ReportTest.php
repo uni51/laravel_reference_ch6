@@ -13,10 +13,38 @@ class ReportTest extends \PHPUnit_Framework_TestCase
     /** @var \App\Report  */
     protected $report;
 
-    protected function tearDown()
-    {
-        \Mockery::close();
-    }
+    /**
+     * リスト6.18：簡単なテストコード
+     */
+//    protected function setUp()
+//    {
+//        $this->report = new \App\Report(
+//            new \Illuminate\Filesystem\Filesystem()
+//        );
+//    }
+
+
+    /**
+     * リスト6.18：簡単なテストコード
+     */
+//    public function testOutput()
+//    {
+//        $this->assertSame(6, $this->report->output());
+//    }
+
+    /**
+     * リスト6.19：Filesystem クラスをモックしたテストコード
+     * 戻り値を指定指定していないため、エラーになる
+     */
+//    public function testOutput()
+//    {
+//        // ファイル内に書き込まれる文字の長さをテスト
+//        $filesystemMock = \Mockery::mock('Illuminate\Filesystem\Filesystem');
+//        $content = 'report';
+//        $filesystemMock->shouldReceive('put')->with('report.txt', $content)->once();
+//        $report = new \App\Report($filesystemMock);
+//        $this->assertSame(6, $report->output());
+//    }
 
     /**
      * リスト6.18：簡単なテストコード
@@ -35,4 +63,14 @@ class ReportTest extends \PHPUnit_Framework_TestCase
         $report = new \App\Report($filesystemMock);
         $this->assertSame(6, $report->output());
     }
+
+    /**
+     * リスト6.19：Filesystem クラスをモックしたテストコード
+     * リスト6.20：戻り値をシミュレート
+     */
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
+
 }

@@ -16,11 +16,11 @@ class Report
     /**
      * リスト6.16：Filesystem を利用したクラス
      *
-    public function __construct()
-    {
-        $this->file = new Filesystem();
-    }
      */
+//    public function __construct()
+//    {
+//        $this->file = new Filesystem();
+//    }
 
     /**
      * リスト6.17：タイプヒンティングでFilesystem クラスを記述
@@ -36,11 +36,11 @@ class Report
      * デフォルトを利用.
      * @param Filesystem $file
      *
-    public function __construct(Filesystem $file = null)
-    {
-        $this->file = $file ?: new Filesystem();
-    }
      */
+//    public function __construct(Filesystem $file = null)
+//    {
+//        $this->file = $file ?: new Filesystem();
+//    }
 
     /**
      * @return int
